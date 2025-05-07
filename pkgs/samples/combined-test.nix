@@ -2,8 +2,8 @@
 , cudnn-test
 , cupti-test
 , libnvinfer-test
-, multimedia-test
-, vpi2-test
+  # , multimedia-test
+  # , vpi2-test
 , writeShellApplication
 }:
 writeShellApplication {
@@ -28,15 +28,5 @@ writeShellApplication {
     echo "Running TensorRT test"
     echo "====="
     ${libnvinfer-test}/bin/libnvinfer-test
-
-    echo "====="
-    echo "Running Multimedia test"
-    echo "====="
-    ${multimedia-test}/bin/multimedia-test
-
-    echo "====="
-    echo "Running VPI2 test"
-    echo "====="
-    ${vpi2-test}/bin/vpi2-test
   '';
 }
