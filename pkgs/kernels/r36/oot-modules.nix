@@ -6,6 +6,7 @@
 , lib
 , runCommand
 , stdenv
+, pkgs
 , ...
 }:
 let
@@ -33,14 +34,15 @@ let
       ];
     })
     (gitRepos.nvgpu.overrideAttrs { name = "nvgpu"; })
-    (applyPatches {
+    (pkgs.lib.overrideDerivation (applyPatches {
       name = "nvdisplay";
       src = gitRepos.nvdisplay;
       patches = [
         ./0001-nvidia-drm-Guard-nv_dev-in-nv_drm_suspend_resume.patch
         ./0001-rename-backlight-device-by-name.patch
       ];
-    })
+    }) (old: { NIX_CFLAGS_COMPILE = "-fno-stack-protector -Wno-implicit-function-declaration -Wincompatible-pointer-types "; }))
+     # pkgs.lib.overrideDerivation (pkgs.dmenu) (old: { NIX_CFLAGS_COMPILE = "-O3 -march=native"; })
     (applyPatches {
       name = "nvethernetrm";
       src = gitRepos.nvethernetrm;
