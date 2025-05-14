@@ -38,6 +38,7 @@ let
       src = gitRepos.nvdisplay;
       patches = [
         ./0001-nvidia-drm-Guard-nv_dev-in-nv_drm_suspend_resume.patch
+        ./0001-rename-backlight-device-by-name.patch
       ];
     })
     (applyPatches {

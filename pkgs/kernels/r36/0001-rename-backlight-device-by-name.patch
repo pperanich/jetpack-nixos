@@ -1,0 +1,71 @@
+diff --git a/kernel-open/conftest.sh b/kernel-open/conftest.sh
+index 391374f..98e89c7 100644
+--- a/kernel-open/conftest.sh
++++ b/kernel-open/conftest.sh
+@@ -3562,16 +3562,16 @@ compile_test() {
+             compile_check_conftest "$CODE" "NV_DRM_ATOMIC_HELPER_CONNECTOR_DPMS_PRESENT" "" "functions"
+         ;;
+ 
+-        get_backlight_device_by_name)
++        backlight_device_get_by_name)
+             #
+-            # Determine if the get_backlight_device_by_name() function is present
++            # Determine if the backlight_device_get_by_name() function is present
+             #
+             CODE="
+             #include <linux/backlight.h>
+-            int conftest_get_backlight_device_by_name(void) {
+-                return get_backlight_device_by_name();
++            int conftest_backlight_device_get_by_name(void) {
++                return backlight_device_get_by_name();
+             }"
+-            compile_check_conftest "$CODE" "NV_GET_BACKLIGHT_DEVICE_BY_NAME_PRESENT" "" "functions"
++            compile_check_conftest "$CODE" "NV_BACKLIGHT_DEVICE_GET_BY_NAME_PRESENT" "" "functions"
+         ;;
+ 
+         timer_setup)
+diff --git a/kernel-open/nvidia/nv-backlight.c b/kernel-open/nvidia/nv-backlight.c
+index a4f2d04..eb6a49a 100644
+--- a/kernel-open/nvidia/nv-backlight.c
++++ b/kernel-open/nvidia/nv-backlight.c
+@@ -34,11 +34,11 @@ NV_STATUS NV_API_CALL nv_get_tegra_brightness_level
+     NvU32 *brightness
+ )
+ {
+-#ifdef NV_GET_BACKLIGHT_DEVICE_BY_NAME_PRESENT
++#ifdef NV_BACKLIGHT_DEVICE_GET_BY_NAME_PRESENT
+     nv_linux_state_t *nvl = NV_GET_NVL_FROM_NV_STATE(nv);
+     struct backlight_device *bd;
+ 
+-    bd = get_backlight_device_by_name(nvl->backlight.device_name);
++    bd = backlight_device_get_by_name(nvl->backlight.device_name);
+     if (bd == NULL)
+     {
+         nv_printf(NV_DBG_ERRORS, "Unable to get backlight device\n");
+@@ -59,11 +59,11 @@ NV_STATUS NV_API_CALL nv_set_tegra_brightness_level
+     NvU32 brightness
+ )
+ {
+-#ifdef NV_GET_BACKLIGHT_DEVICE_BY_NAME_PRESENT
++#ifdef NV_BACKLIGHT_DEVICE_GET_BY_NAME_PRESENT
+     nv_linux_state_t *nvl = NV_GET_NVL_FROM_NV_STATE(nv);
+     struct backlight_device *bd;
+ 
+-    bd = get_backlight_device_by_name(nvl->backlight.device_name);
++    bd = backlight_device_get_by_name(nvl->backlight.device_name);
+     if (bd == NULL)
+     {
+         nv_printf(NV_DBG_ERRORS, "Unable to get backlight device\n");
+diff --git a/kernel-open/nvidia/nvidia.Kbuild b/kernel-open/nvidia/nvidia.Kbuild
+index c87daf3..d249943 100644
+--- a/kernel-open/nvidia/nvidia.Kbuild
++++ b/kernel-open/nvidia/nvidia.Kbuild
+@@ -143,7 +143,7 @@ NV_CONFTEST_FUNCTION_COMPILE_TESTS += wait_for_random_bytes
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += register_cpu_notifier
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += cpuhp_setup_state
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += dma_map_resource
+-NV_CONFTEST_FUNCTION_COMPILE_TESTS += get_backlight_device_by_name
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += backlight_device_get_by_name
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += timer_setup
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += pci_enable_msix_range
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += kernel_read_has_pointer_pos_arg
