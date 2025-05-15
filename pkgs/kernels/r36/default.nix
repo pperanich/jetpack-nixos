@@ -42,7 +42,7 @@ buildLinux (args // {
   # Using applyPatches here since it's not obvious how to append an extra
   # postPatch. This is not very efficient.
   src = if useOe4tKernelSrc then oe4tKernelSrc else gitRepos."kernel/kernel-jammy-src";
-  autoModules = true;
+  autoModules = false;
   features = { }; # TODO: Why is this needed in nixpkgs master (but not NixOS 22.05)?
 
   kernelPatches = [
@@ -101,10 +101,6 @@ buildLinux (args // {
 
     FW_LOADER_COMPRESS_XZ = yes;
     FW_LOADER_COMPRESS_ZSTD = yes;
-
-    # Explicitly prevent AUFS_FS, doesn't work with realtime kernel
-    # Canonical explicitly disables it for all arm64 builds (realtime or not)
-    AUFS_FS = no;
   } // (lib.optionalAttrs realtime {
     PREEMPT_VOLUNTARY = lib.mkForce no; # Disable the one set in common-config.nix
     # These are the options enabled/disabled by source/generic_rt_build.sh (this file comes after source/source_sync.sh)
