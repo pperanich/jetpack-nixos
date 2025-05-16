@@ -34,6 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [
     "KERNEL_HEADERS=${finalAttrs.kernel.dev}/lib/modules/${finalAttrs.kernel.modDirVersion}/source"
     "KERNEL_OUTPUT=${finalAttrs.kernel.dev}/lib/modules/${finalAttrs.kernel.modDirVersion}/build"
+    "HOSTCC=${stdenv.cc.targetPrefix}cc"
   ];
 
   buildFlags = "dtbs";

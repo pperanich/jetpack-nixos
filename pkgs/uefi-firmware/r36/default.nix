@@ -11,6 +11,7 @@
 , unixtools
 , libuuid
 , which
+, gcc
 , nasm
 , applyPatches
 , nukeReferences
@@ -220,6 +221,7 @@ let
       depsBuildBuild = [ buildPackages.stdenv.cc buildPackages.bash libuuid ];
       nativeBuildInputs = [
         pythonEnv
+        gcc
 
         # from nixpkgs, for stuart
         acpica-tools

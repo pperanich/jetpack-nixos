@@ -33,13 +33,19 @@ let
         ./0002-sound-Fix-include-path-for-tegra-virt-alt-include.patch
       ];
     })
-    (gitRepos.nvgpu.overrideAttrs { name = "nvgpu"; })
+    (gitRepos.nvgpu.overrideAttrs { 
+      name = "nvgpu"; 
+      patches = [
+        ./0002-nvgpu-downgrade-gcc-14-err-to-warn.patch
+      ];
+    })
     (pkgs.lib.overrideDerivation (applyPatches {
       name = "nvdisplay";
       src = gitRepos.nvdisplay;
       patches = [
         ./0001-nvidia-drm-Guard-nv_dev-in-nv_drm_suspend_resume.patch
         ./0001-rename-backlight-device-by-name.patch
+        ./0002-nvdisplay-downgrade-gcc-14-err-to-warn.patch
       ];
     }) (old: { NIX_CFLAGS_COMPILE = "-fno-stack-protector -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration"; }))
      # pkgs.lib.overrideDerivation (pkgs.dmenu) (old: { NIX_CFLAGS_COMPILE = "-O3 -march=native"; })
