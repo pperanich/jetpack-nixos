@@ -235,6 +235,7 @@ in
       boot.kernelParams = [
         # Needed on Orin at least, but upstream has it for both
         "nvidia.rm_firmware_active=all"
+        "boot.shell_on_fail"
       ]
       ++ lib.optionals cfg.console.enable [
         "console=tty0" # Output to HDMI/DP. May need fbcon=map:0 as well
@@ -242,7 +243,9 @@ in
       ]
       ++ lib.optional (lib.hasPrefix "xavier-" cfg.som || cfg.som == "generic") "video=efifb:off"; # Disable efifb driver, which crashes Xavier NX and possibly AGX
 
-      boot.initrd.includeDefaultModules = (pkgs.nvidia-jetpack.l4tAtLeast "36"); # Avoid a bunch of modules we may not get from tegra_defconfig
+      # boot.initrd.shell.enable = true;
+      boot.initrd.includeDefaultModules = false;
+      # boot.initrd.includeDefaultModules = (pkgs.nvidia-jetpack.l4tAtLeast "36"); # Avoid a bunch of modules we may not get from tegra_defconfig
       boot.initrd.availableKernelModules = [ "xhci-tegra" ] # Make sure USB firmware makes it into initrd
         ++ lib.optionals (pkgs.nvidia-jetpack.l4tAtLeast "36") [
         "tegra_mce"
@@ -251,6 +254,7 @@ in
         "fusb301"
         "typec_ucsi"
         "ucsi_ccg"
+        # "sata_nv"
         # PCIe for nvme, ethernet, etc.
         "phy_tegra194_p2u"
         "pcie_tegra194"

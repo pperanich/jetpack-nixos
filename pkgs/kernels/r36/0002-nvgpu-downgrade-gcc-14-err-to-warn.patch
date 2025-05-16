@@ -1,7 +1,7 @@
 diff --git a/drivers/gpu/nvgpu/Makefile b/drivers/gpu/nvgpu/Makefile
-index 72e0e95..b893738 100644
---- a/nvgpu/drivers/gpu/nvgpu/Makefile
-+++ b/nvgpu/drivers/gpu/nvgpu/Makefile
+index 72e0e954e..b89373891 100644
+--- a/drivers/gpu/nvgpu/Makefile
++++ b/drivers/gpu/nvgpu/Makefile
 @@ -23,6 +23,7 @@ ccflags-y += -Wno-multichar
  ccflags-y += -Werror
  ccflags-y += -Wno-error=cpp
