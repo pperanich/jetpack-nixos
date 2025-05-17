@@ -8,6 +8,7 @@ deb-builder {
     "doc"
     "include"
     "static"
+    "lib"
   ];
   releaseInfo = {
     license = "CUDA Toolkit";

@@ -6,6 +6,7 @@ deb-builder {
     "out"
     "dev"
     "doc"
+    "lib"
     "include"
   ];
   releaseInfo = {
