@@ -241,7 +241,7 @@ in
   dontBuild = true;
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    # autoPatchelfHook
     # This hook will make sure libcuda can be found
     # in typically /lib/opengl-driver by adding that
     # directory to the rpath of all ELF binaries.
