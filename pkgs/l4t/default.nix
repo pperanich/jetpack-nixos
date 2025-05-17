@@ -69,6 +69,7 @@ let
       dontConfigure = true;
       dontBuild = true;
       noDumpEnvVars = true;
+      dontCheckForBrokenSymlinks = true;
 
       extraAutoPatchelfLibs = lib.optionals (autoPatchelf && (stdenv.buildPlatform != stdenv.hostPlatform)) [ "${stdenv.cc.cc.lib}/${stdenv.targetPlatform.config}/lib" ];
 
