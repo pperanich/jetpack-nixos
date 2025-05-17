@@ -231,8 +231,8 @@ let
 
   l4t-cupva = buildFromDeb {
     name = "cupva";
-    src = debs.common."cupva-2.3-l4t".src;
-    version = debs.common."cupva-2.3-l4t".version;
+    src = debs.common."cupva-2.5-l4t".src;
+    version = debs.common."cupva-2.5-l4t".version;
     buildInputs = [ stdenv.cc.cc.lib l4t-cuda l4t-nvsci l4t-pva ];
     postPatch = ''
       mkdir -p lib
