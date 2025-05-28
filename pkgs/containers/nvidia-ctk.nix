@@ -15,15 +15,7 @@ buildGoModule rec {
     hash = "sha256-ldEBF+5zuJAyDSUVnMPja2BvdMCNMDkp0Ye5+qFEm14=";
   };
 
-  # subPackages = [ "cmd/nvidia-ctk" ];
-  subPackages = [
-    "cmd/nvidia-cdi-hook"
-    "cmd/nvidia-container-runtime"
-    "cmd/nvidia-container-runtime.cdi"
-    "cmd/nvidia-container-runtime-hook"
-    "cmd/nvidia-container-runtime.legacy"
-    "cmd/nvidia-ctk"
-  ];
+  subPackages = [ "cmd/nvidia-ctk" ];
 
   vendorHash = null;
 
