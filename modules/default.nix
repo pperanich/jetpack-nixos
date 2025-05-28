@@ -419,7 +419,8 @@ in
         wantedBy = [ "multi-user.target" ];
         script =
           let
-            exe = lib.getExe pkgs.nvidia-jetpack.nvidia-ctk;
+            # exe = lib.getExe pkgs.nvidia-jetpack.nvidia-ctk;
+            exe = lib.getExe' pkgs.nvidia-container-toolkit "nvidia-ctk";
           in
           ''
             ${exe} cdi generate \
