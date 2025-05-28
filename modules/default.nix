@@ -191,10 +191,10 @@ in
           assertion = nvidiaDockerActive -> lib.versionAtLeast config.virtualisation.docker.package.version "25";
           message = "Docker version < 25 does not support CDI";
         }
-        {
-          assertion = (nvidiaDockerActive || nvidiaPodmanActive) -> (!config.hardware.nvidia-container-toolkit.enable);
-          message = "hardware.nvidia-container-toolkit.enable does not work with jetson devices (yet), use virtualisation.{docker,podman}.enableNvidia instead";
-        }
+        # {
+        #   assertion = (nvidiaDockerActive || nvidiaPodmanActive) -> (!config.hardware.nvidia-container-toolkit.enable);
+        #   message = "hardware.nvidia-container-toolkit.enable does not work with jetson devices (yet), use virtualisation.{docker,podman}.enableNvidia instead";
+        # }
         (validSomsAssertion "5" [ "xavier" "orin" ])
         (validSomsAssertion "6" [ "orin" ])
       ];
